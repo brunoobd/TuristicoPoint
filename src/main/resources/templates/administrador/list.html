@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/materialize/css/administrador/style.css">
+    <link rel="stylesheet" href="/materialize/css/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/materialize/js/materialize.js"></script>
+    <title>Document</title>
+</head>
+
+<body class="body">
+    <div class="container tabela">
+    	<div class="add">
+            <a href="/CadastroAdmin"><i class="material-icons prefix small">add_circle</i></a>
+            <h5>Adicionar administrador</h5>
+        </div>
+        <table class="striped responsive-table centered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Alterar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="adm:${admins}">
+                    <td th:text="${adm.id}"></td>
+                    <td th:text="${adm.nome}"></td>
+                    <td th:text="${adm.email}"></td>
+                    <td><a th:href="@{/AlterarAdmin(id=${adm.id})}"><button type="button" class="modificar alterar z-depth-1"><i class="material-icons alterar">create</i></button></a></td>
+                    <td><a th:attr="onclick=|return confirm('Deseja excluir o ID: ${adm.id}?')|" th:href="@{/ExcluirAdmin(id=${adm.id})}"><button type="button" class="modificar excluir z-depth-1"><i class="material-icons apagar">delete</i></button></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ul class="pagination paginacao">
+        <li th:class="${pageAtual == 1 ? 'disabled' : 'waves-effect'}">
+            <a th:href="${pageAtual > 1 ? pageAtual - 1 : '#'}"><i class="material-icons">chevron_left</i></a>
+        </li>
+        <li th:class="${pageAtual == p ? 'active blue' : 'waves-effect'}" th:each="p:${numPaginas}">
+            <a th:href="${p}"><span th:text="${p}"></span></a>
+        </li>
+        <li th:class="${pageAtual == totalPaginas ? 'disabled' : 'waves-effect'}">
+            <a th:href="${pageAtual < totalPaginas ? pageAtual + 1 : '#'}">
+            <i class="material-icons">chevron_right</i></a>
+        </li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+.body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.main {
+	width: 60% !important;
+	margin: 100px auto !important;
+	padding: 40px 70px;
+	background-color: #f9f9f9;
+}
+
+.alerta {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 25px 0 0 0;
+	padding: 15px;
+	border-radius: 5px;
+	color: #fff;
+	opacity: 0;
+	animation: alerta 1s 0.5s ease-in-out forwards;
+}
+
+.alerta span {
+	margin-left: 15px;
+}
+
+@keyframes alerta {
+	from {
+		transform: translateY(20px);
+	}
+	
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.input-field .prefix.active {
+	color: black !important;
+}
+
+/* LISTA ADMIN */
+
+.tabela {
+	margin-top: 100px !important;
+}
+
+.add {
+	margin-bottom: 20px;
+}
+
+.add, .add a {
+	display: flex;
+	align-items: center;
+}
+
+.add h5 {
+	margin: 0 20px !important;
+}
+
+.paginacao {
+	position: fixed;
+	bottom: 20px;
+}
+
+.modificar {
+	border: none;
+	outline: none;
+}
+
+.alterar {
+	
+}
+
+.excluir {
+	
+}

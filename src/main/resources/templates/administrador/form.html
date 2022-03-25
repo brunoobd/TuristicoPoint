@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="materialize/css/administrador/style.css">
+    <link rel="stylesheet" href="materialize/css/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="materialize/js/materialize.js"></script>
+    <title>Cadastro de Administrador</title>
+</head>
+
+<body>
+    <div class="container main z-depth-4">
+        <h4>Cadastro de Administrador</h4>
+        <form class="col s4" style="margin: 0 auto;" action="salvarAdmin" method="post">
+        	<input type="hidden" name="id" th:value="${admin?.id}">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="first_name" type="text" name="nome" th:value="${admin?.nome}" class="validate" required autofocus autocomplete="off">
+                    <label for="first_name">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" type="email" name="email" th:value="${admin?.email}" class="validate" required autocomplete="off">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" type="password" name="senha" class="validate" required>
+                    <label for="password">Senha</label>
+                </div>
+            </div>
+            <button class="waves-effect waves-light btn" type="submit"><i
+                    class="material-icons right">person_add</i>CADASTRAR</button>
+       		<div th:replace="fragments/mensagem">
+       		
+       		</div>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+<body>
+	<div class="alerta red lighten-2"
+		th:if="${not #strings.isEmpty(mensagemErro)}">
+		<i class="material-icons prefix">error_outline</i>
+		<span th:text="${mensagemErro}"></span>
+	</div>
+	<div class="alerta green lighten-2"
+		th:if="${not #strings.isEmpty(mensagemSucesso)}">
+		<i class="material-icons prefix">done</i>
+		<span th:text="${mensagemSucesso}"></span>
+	</div>
+</body>
+</html>
