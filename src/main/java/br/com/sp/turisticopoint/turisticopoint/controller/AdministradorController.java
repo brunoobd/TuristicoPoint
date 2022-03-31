@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.sp.turisticopoint.turisticopoint.model.Administrador;
 import br.com.sp.turisticopoint.turisticopoint.repository.AdministradorRepository;
+import br.com.sp.turisticopoint.turisticopoint.util.HashUtil;
 
 @Controller
 public class AdministradorController {
@@ -41,6 +42,21 @@ public class AdministradorController {
 			// mensagem de erro caso administrador não seja seja cadastrado
 			attr.addFlashAttribute("mensagemErro", "Verifique os campos, email duplicado ou senha faltando algo...");
 			return "redirect:CadastroAdmin";
+		}
+		// variavel para descobrir alteração ou inserção
+		boolean alteracao = admin.getId() != null ? true : false;
+		// verifica se a senha esta vazia
+		if (admin.getSenha().equals(HashUtil.hash(""))) {
+			if (!alteracao) {
+				// retirar a parte antes do @ no e-mail
+				String parte = admin.getEmail().substring(0, admin.getEmail().indexOf("@"));
+				// "setar" a parte na senha do main
+				admin.setSenha(parte);
+			} else {
+				String hash = repository.findById(admin.getId()).get().getSenha();
+				// colocando a senha que ja esta com hash no banco, sem aplicar hash em cima de hash
+				admin.setSenhaComHash(hash); 
+			}
 		}
 		try {
 			repository.save(admin);

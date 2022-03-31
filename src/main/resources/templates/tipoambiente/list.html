@@ -10,36 +10,38 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <script src="/materialize/js/materialize.js"></script>
-<title>Lista de Administradores</title>
+<title>Lista de Tipos de Ambiente</title>
 </head>
 
 <body class="body">
 	<header th:replace="fragments/padrao :: cabecalho"></header>
 	<div class="container tabela">
-		<h3>Lista de Administradores</h3>
+		<h3>Lista de Tipos de Ambiente</h3>
 		<table class="striped responsive-table centered">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Nome</th>
-					<th>E-mail</th>
+					<th>Descricao</th>
+					<th>Palavras Chaves</th>
 					<th>Alterar</th>
 					<th>Excluir</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="adm:${admins}">
-					<td th:text="${adm.id}"></td>
-					<td th:text="${adm.nome}"></td>
-					<td th:text="${adm.email}"></td>
+				<tr th:each="t:${tipo}">
+					<td th:text="${t.id}"></td>
+					<td th:text="${t.nome}"></td>
+					<td th:text="${t.descricao}"></td>
+					<td th:text="${t.palavrasChave}"></td>
 					<td>
-						<a class="waves-effect waves-light btn yellow darken-1" th:href="@{/AlterarAdmin(id=${adm.id})}">
+						<a class="waves-effect waves-light btn yellow darken-1" th:href="@{/AlterarTipoAmbiente(id=${t.id})}">
 							<i class="material-icons">create</i>
 						</a>
 					</td>
 					<td>
-						<a class="waves-effect waves-light btn red" th:attr="onclick=|return confirm('Deseja excluir o ID: ${adm.id}?')|"
-							th:href="@{/ExcluirAdmin(id=${adm.id})}">
+						<a class="waves-effect waves-light btn red" th:attr="onclick=|return confirm('Deseja excluir o ID: ${t.id}?')|"
+							th:href="@{/ExcluirTipoAmbiente(id=${t.id})}">
 							<i class="material-icons">delete</i>
 						</a>
 					</td>
@@ -47,7 +49,7 @@
 			</tbody>
 		</table>
 		<div class="add">
-			<a href="/CadastroAdmin" class="waves-effect waves-light btn light-blue darken-1"><i class="material-icons left">add_circle_outline</i>Adicionar administradores</a>
+			<a href="/CadastroTipoAmbiente" class="waves-effect waves-light btn light-blue darken-1"><i class="material-icons left">add_circle_outline</i>Adicionar Tipo de Ambiente</a>
 		</div>
 	</div>
 	<ul class="pagination paginacao">

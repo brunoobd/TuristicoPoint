@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <script src="materialize/js/materialize.js"></script>
-<title>Cadastro de Administrador</title>
+<title>Cadastro de Tipo de Ambiente</title>
 </head>
 
 <body>
@@ -18,30 +18,30 @@
 	<div class="container main z-depth-4">
 		<!-- <h4 th:if="${admin?.id}">Cadastro de Administrador</h4> -->
 		<!-- <h4>Alteração de Administrador</h4> -->
-		<form class="col s4" style="margin: 0 auto;" action="salvarAdmin"
+		<form class="col s4" style="margin: 0 auto;" action="SalvarTipoAmbiente"
 			method="post">
-			<input type="hidden" name="id" th:value="${admin?.id}">
+			<input type="hidden" name="id" th:value="${tipo?.id}">
 			<div class="row">
 				<div class="input-field col s12">
-					<i class="material-icons prefix">account_circle</i> <input
-						id="first_name" type="text" name="nome" th:value="${admin?.nome}"
+					<i class="material-icons prefix">short_text</i> <input
+						id="first_name" type="text" name="nome" th:value="${tipo?.nome}"
 						class="validate" required autofocus autocomplete="off"> <label
-						for="first_name">Nome</label>
+						for="first_name">Tipo</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
-					<i class="material-icons prefix">email</i> <input id="email"
-						type="email" name="email" th:value="${admin?.email}"
+					<i class="material-icons prefix">description</i> <input id="descricao"
+						type="text" name="descricao" th:value="${admin?.descricao}"
 						class="validate" required autocomplete="off"> <label
-						for="email">Email</label>
+						for="descricao">Descricao</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
-					<i class="material-icons prefix">lock</i> <input id="password"
-						type="password" name="senha" class="validate"> <label
-						for="password">Senha</label>
+					<i class="material-icons prefix">vpn_key</i> <input id="palavrasChave"
+						type="text" name="palavrasChave" class="validate"> <label
+						for="palavrasChave">Palavras Chave</label>
 				</div>
 			</div>
 			<button class="waves-effect waves-light btn light-blue darken-1" type="submit">

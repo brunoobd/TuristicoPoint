@@ -46,37 +46,75 @@
 
 /* LISTA ADMIN */
 
+.header {
+	width: 100% !important;
+	display: flex !important;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #039be5;
+	color: #fff;
+	padding: 10px 30px;
+}
+
+.header h3 {
+	margin: 0 !important;
+}
+
+.nav ul li {
+	display: inline-block;
+}
+
+.nav-button {
+	height: 40px;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	outline: none;
+	transition-duration: 0.5s;
+	color: white;
+}
+
+.nav-button p {
+	margin-left: 5px;
+}
+
+.nav-button:hover {
+	cursor: pointer;
+	transition-duration: 0.5s;
+}
+
 .tabela {
-	margin-top: 100px !important;
+	margin-top: 20px !important;
 }
 
 .add {
-	margin-bottom: 20px;
-}
-
-.add, .add a {
-	display: flex;
-	align-items: center;
-}
-
-.add h5 {
-	margin: 0 20px !important;
+	margin-top: 30px;
 }
 
 .paginacao {
 	position: fixed;
-	bottom: 20px;
+	bottom: 75px;
 }
 
 .modificar {
 	border: none;
 	outline: none;
+	padding: 10px 15px;
+	color: #fff;
 }
 
-.alterar {
-	
+.footer {
+	width: 100%;
+	padding: 10px;
+	position: absolute;
+	bottom: 0;
+	background-color: #039be5;
 }
 
-.excluir {
-	
+.footer h5 {
+	text-align: center;
+	color: #fff;
 }
