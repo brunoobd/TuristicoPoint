@@ -10,14 +10,13 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <script src="materialize/js/materialize.js"></script>
-<title>Cadastro de Administrador</title>
+<title th:text="${admin == null ? 'Cadastro de Administrador' : 'Alteração de Administrador'}"></title>
 </head>
 
 <body>
 	<header th:replace="fragments/padrao :: cabecalho"></header>
 	<div class="container main z-depth-4">
-		<!-- <h4 th:if="${admin?.id}">Cadastro de Administrador</h4> -->
-		<!-- <h4>Alteração de Administrador</h4> -->
+		<h4 th:text="${admin == null ? 'Cadastro de Administrador' : 'Alteração de Administrador'}"></h4> 
 		<form class="col s4" style="margin: 0 auto;" action="salvarAdmin"
 			method="post">
 			<input type="hidden" name="id" th:value="${admin?.id}">
@@ -45,7 +44,7 @@
 				</div>
 			</div>
 			<button class="waves-effect waves-light btn light-blue darken-1" type="submit">
-				<i class="material-icons right">person_add</i>CADASTRAR
+				<i th:text="${admin == null ? 'person_add' : 'create'}" class="material-icons right">person_add</i><span th:text="${admin == null ? 'CADASTRAR' : 'ALTERAR'}" ></span> 
 			</button>
 			<div th:replace="fragments/mensagem"></div>
 		</form>

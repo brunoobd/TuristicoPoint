@@ -48,7 +48,7 @@ public class TipoAmbienteController {
 	
 	@RequestMapping("ListaTipoAmbiente/{page}")
 	public String list(Model model, @PathVariable("page") int page) {
-		PageRequest pageble = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
+		PageRequest pageble = PageRequest.of(page - 1, 3, Sort.by(Sort.Direction.ASC, "nome"));
 		Page<TipoAmbiente> pagina = repository.findAll(pageble);
 		model.addAttribute("tipo", pagina.getContent());
 		int totalPages = pagina.getTotalPages();
@@ -62,6 +62,31 @@ public class TipoAmbienteController {
 		model.addAttribute("totalPaginas", totalPages);
 		model.addAttribute("pageAtual", page);
 		
+		return "tipoambiente/list";
+	}
+	
+	@RequestMapping("ExcluirTipoAmbiente")
+	public String excluir(Long id) {
+		repository.deleteById(id);
+		return "redirect:ListaTipoAmbiente/1";
+	}
+	
+	@RequestMapping("AlterarTipoAmbiente")
+	public String atualizar(Model model, Long id) {
+		TipoAmbiente tipo = repository.findById(id).get();
+		model.addAttribute("tipo", tipo);
+		return "forward:CadastroTipoAmbiente";
+	}
+	
+	@RequestMapping("searchAmbiente")
+	public String search(Model model, String busca, String escolha) {
+		if (escolha.equals("nome")) {
+			model.addAttribute("tipo", repository.buscarPorNome(busca));
+		} else if (escolha.equals("descricao")) {
+			model.addAttribute("tipo", repository.buscarPorDescricao(busca));
+		} else {
+			model.addAttribute("tipo", repository.buscarPorPalavraChave(busca));
+		}
 		return "tipoambiente/list";
 	}
 }

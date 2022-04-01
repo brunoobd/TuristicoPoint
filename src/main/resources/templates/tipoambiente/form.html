@@ -10,14 +10,17 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <script src="materialize/js/materialize.js"></script>
-<title>Cadastro de Tipo de Ambiente</title>
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> -->
+<title th:text="${tipo == null ? 'Cadastro de Tipo de Ambiente' : 'Alteração de Tipo de Ambiente'}"></title>
 </head>
 
 <body>
 	<header th:replace="fragments/padrao :: cabecalho"></header>
 	<div class="container main z-depth-4">
-		<!-- <h4 th:if="${admin?.id}">Cadastro de Administrador</h4> -->
-		<!-- <h4>Alteração de Administrador</h4> -->
+		<h4  th:text="${tipo == null ? 'Cadastro de Tipo de Ambiente' : 'Alteração de Tipo de Ambiente'}"></h4> 
 		<form class="col s4" style="margin: 0 auto;" action="SalvarTipoAmbiente"
 			method="post">
 			<input type="hidden" name="id" th:value="${tipo?.id}">
@@ -32,7 +35,7 @@
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">description</i> <input id="descricao"
-						type="text" name="descricao" th:value="${admin?.descricao}"
+						type="text" name="descricao" th:value="${tipo?.descricao}"
 						class="validate" required autocomplete="off"> <label
 						for="descricao">Descricao</label>
 				</div>
@@ -40,14 +43,14 @@
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">vpn_key</i> <input id="palavrasChave"
-						type="text" name="palavrasChave" class="validate"> <label
+						type="text" name="palavrasChave" th:value="${tipo?.palavrasChave}" class="validate"> <label
 						for="palavrasChave">Palavras Chave</label>
 				</div>
 			</div>
 			<button class="waves-effect waves-light btn light-blue darken-1" type="submit">
-				<i class="material-icons right">person_add</i>CADASTRAR
+				<i th:text="${tipo == null ? 'person_add' : 'create'}" class="material-icons right">person_add</i>
+				<span th:text="${tipo == null ? 'CADASTRAR' : 'ALTERAÇÃO'}"></span>
 			</button>
-			<div th:replace="fragments/mensagem"></div>
 		</form>
 	</div>
 	<footer th:replace="fragments/padrao :: footer"></footer>

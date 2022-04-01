@@ -9,14 +9,39 @@
 <link rel="stylesheet" href="/materialize/css/materialize.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<script src="/materialize/js/materialize.js"></script>
 <title>Lista de Administradores</title>
 </head>
 
 <body class="body">
 	<header th:replace="fragments/padrao :: cabecalho"></header>
 	<div class="container tabela">
-		<h3>Lista de Administradores</h3>
+		<div class="row busca">
+			<h4>Buscar administrador</h4>
+			<form action="/searchAdministrador" method="get">
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="pesquisa" type="text" name="busca"
+							class="validate" required autocomplete="off" autofocus> <label
+							for="first_name">Pesquise por algo</label>
+					</div>
+					<div class="input-field col s4">
+						<select name="escolha" required>
+							<option value="" disabled selected>Escolha uma opção</option>
+							<option value="nome">Nome</option>
+							<option value="email">Email</option>
+						</select> 
+						<label>Escolha pelo oque voce quer pesquisar</label>
+					</div>
+					<div class="input-fild col s2">
+						<button class="btn waves-effect waves-light light-blue darken-1 btn-search" type="submit">Pesquisar
+			  				<i class="material-icons right">search</i>
+			  			</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="row lista">
+			<h4>Lista de Administradores</h4>
 		<table class="striped responsive-table centered">
 			<thead>
 				<tr>
@@ -50,7 +75,8 @@
 			<a href="/CadastroAdmin" class="waves-effect waves-light btn light-blue darken-1"><i class="material-icons left">add_circle_outline</i>Adicionar administradores</a>
 		</div>
 	</div>
-	<ul class="pagination paginacao">
+		</div>
+		<ul class="pagination paginacao">
 		<li th:class="${pageAtual == 1 ? 'disabled' : 'waves-effect'}"><a
 			th:href="${pageAtual > 1 ? pageAtual - 1 : '#'}"><i
 				class="material-icons">chevron_left</i></a></li>
@@ -64,6 +90,14 @@
 		</li>
 	</ul>
 	<footer th:replace="fragments/padrao :: footer"></footer>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+	<script src="/materialize/js/materialize.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('select').formSelect();
+		});
+	</script>
 </body>
 
 </html>

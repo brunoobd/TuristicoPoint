@@ -61,7 +61,11 @@ public class AdministradorController {
 		try {
 			repository.save(admin);
 			// mensagem de sucesso caso administrador seja cadastrado
-			attr.addFlashAttribute("mensagemSucesso", "Sucesso, administrador cadastrado!");
+			if (alteracao) {
+				attr.addFlashAttribute("mensagemSucesso", "Sucesso, administrador alterado!");
+			} else {
+				attr.addFlashAttribute("mensagemSucesso", "Sucesso, administrador cadastrado!");
+			}
 		} catch (Exception e) {
 			attr.addFlashAttribute("mensagemErro", "Houve um erro ao cadastrar... Erro: "+e.getMessage());
 		}
@@ -72,7 +76,7 @@ public class AdministradorController {
 	// @PathVariable é usado para associar o page do request mapping com o page do parametro...
 	public String list(Model model, @PathVariable("page") int page) {
 		// cria um pageable informando os parametros da página
-		PageRequest pageable = PageRequest.of(page - 1, 6, Sort.by(Sort.Direction.ASC, "nome"));
+		PageRequest pageable = PageRequest.of(page - 1, 3, Sort.by(Sort.Direction.ASC, "nome"));
 		// cria um page de Administrador através dos parâmetros passados ao repository
 		Page<Administrador> pagina = repository.findAll(pageable);
 		model.addAttribute("admins", pagina.getContent());
@@ -106,5 +110,16 @@ public class AdministradorController {
 	public String apagar(Long id) {
 		repository.deleteById(id);
 		return "redirect:ListaAdministrador/1";
+	}
+	
+	@RequestMapping("searchAdministrador")
+	public String search(Model model, String busca, String escolha) {
+		if (escolha.equals("nome")) {
+			model.addAttribute("admins", repository.buscarPorNome(busca));
+			
+		} else {
+			model.addAttribute("admins", repository.buscarPorEmail(busca));
+		}
+		return "administrador/list";
 	}
 }

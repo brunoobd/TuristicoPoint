@@ -9,15 +9,41 @@
 <link rel="stylesheet" href="/materialize/css/materialize.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<script src="/materialize/js/materialize.js"></script>
 <title>Lista de Tipos de Ambiente</title>
 </head>
 
 <body class="body">
 	<header th:replace="fragments/padrao :: cabecalho"></header>
 	<div class="container tabela">
-		<h3>Lista de Tipos de Ambiente</h3>
-		<table class="striped responsive-table centered">
+		<div class="row busca">
+			<h4>Buscar Tipo De Ambiente</h4>
+			<form action="/searchAmbiente" method="get">
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="pesquisa" type="text" name="busca"
+							class="validate" required autocomplete="off"> <label
+							for="first_name">Pesquise por algo</label>
+					</div>
+					<div class="input-field col s4">
+						<select name="escolha" required>
+							<option value="" disabled selected>Escolha uma opção</option>
+							<option value="nome">Nome</option>
+							<option value="descricao">Descricao</option>
+							<option value="palavrasChave">Palavras Chaves</option>
+						</select> 
+						<label>Escolha pelo oque voce quer pesquisar</label>
+					</div>
+					<div class="input-fild col s2">
+						<button class="btn waves-effect waves-light light-blue darken-1 btn-search" type="submit">Pesquisar
+			  				<i class="material-icons right">search</i>
+			  			</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="row lista">
+			<h4>Lista de Tipos de Ambiente</h4>
+			<table class="striped responsive-table centered">
 			<thead>
 				<tr>
 					<th>Id</th>
@@ -34,22 +60,24 @@
 					<td th:text="${t.nome}"></td>
 					<td th:text="${t.descricao}"></td>
 					<td th:text="${t.palavrasChave}"></td>
-					<td>
-						<a class="waves-effect waves-light btn yellow darken-1" th:href="@{/AlterarTipoAmbiente(id=${t.id})}">
-							<i class="material-icons">create</i>
-						</a>
-					</td>
-					<td>
-						<a class="waves-effect waves-light btn red" th:attr="onclick=|return confirm('Deseja excluir o ID: ${t.id}?')|"
-							th:href="@{/ExcluirTipoAmbiente(id=${t.id})}">
-							<i class="material-icons">delete</i>
-						</a>
-					</td>
+					<td><a class="waves-effect waves-light btn yellow darken-1"
+						th:href="@{/AlterarTipoAmbiente(id=${t.id})}"> <i
+							class="material-icons">create</i>
+					</a></td>
+					<td><a class="waves-effect waves-light btn red"
+						th:attr="onclick=|return confirm('Deseja excluir o ID: ${t.id}?')|"
+						th:href="@{/ExcluirTipoAmbiente(id=${t.id})}"> <i
+							class="material-icons">delete</i>
+					</a></td>
 				</tr>
 			</tbody>
 		</table>
-		<div class="add">
-			<a href="/CadastroTipoAmbiente" class="waves-effect waves-light btn light-blue darken-1"><i class="material-icons left">add_circle_outline</i>Adicionar Tipo de Ambiente</a>
+			<div class="add">
+				<a href="/CadastroTipoAmbiente"
+					class="waves-effect waves-light btn light-blue darken-1"><i
+					class="material-icons left">add_circle_outline</i>Adicionar Tipo de
+					Ambiente</a>
+			</div>
 		</div>
 	</div>
 	<ul class="pagination paginacao">
@@ -66,6 +94,16 @@
 		</li>
 	</ul>
 	<footer th:replace="fragments/padrao :: footer"></footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+	<script src="/materialize/js/materialize.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('select').formSelect();
+		});
+	</script>
+
+
 </body>
 
 </html>
