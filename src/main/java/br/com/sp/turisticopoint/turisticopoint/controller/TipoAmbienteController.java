@@ -80,12 +80,29 @@ public class TipoAmbienteController {
 	
 	@RequestMapping("searchAmbiente")
 	public String search(Model model, String busca, String escolha) {
+		model.addAttribute("escolha", escolha);
+		model.addAttribute("busca", busca);
 		if (escolha.equals("nome")) {
 			model.addAttribute("tipo", repository.buscarPorNome(busca));
+			if (repository.buscarPorNome(busca).isEmpty()) {
+				model.addAttribute("mensagemErro", "Não existe um tipo de ambiente com esse nome...");
+			} else {
+				model.addAttribute("mensagemSucesso", "Sucesso ao buscar um tipo de ambiente com o nome: "+busca+".");
+			}
 		} else if (escolha.equals("descricao")) {
 			model.addAttribute("tipo", repository.buscarPorDescricao(busca));
+			if (repository.buscarPorDescricao(busca).isEmpty()) {
+				model.addAttribute("mensagemErro", "Não existe um tipo de ambiente com essa descrição...");
+			} else {
+				model.addAttribute("mensagemSucesso", "Sucesso ao buscar um tipo de ambiente com a descrição: "+busca+".");
+			}
 		} else {
 			model.addAttribute("tipo", repository.buscarPorPalavraChave(busca));
+			if (repository.buscarPorPalavraChave(busca).isEmpty()) {
+				model.addAttribute("mensagemErro", "Não existe um tipo de ambiente com essa(s) palavra(s) chave(s)...");
+			} else {
+				model.addAttribute("mensagemSucesso", "Sucesso ao buscar um tipo de ambiente com essa(s) palavra(s) chave(s): "+busca+".");
+			}
 		}
 		return "tipoambiente/list";
 	}

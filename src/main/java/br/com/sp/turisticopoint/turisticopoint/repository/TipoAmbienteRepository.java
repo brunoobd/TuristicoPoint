@@ -19,4 +19,5 @@ public interface TipoAmbienteRepository extends PagingAndSortingRepository<TipoA
 	@Query("SELECT t FROM TipoAmbiente t WHERE t.palavrasChave LIKE %:p%")
 	public List<TipoAmbiente> buscarPorPalavraChave(@Param("p") String palavraChave);
 	
+	public List<TipoAmbiente> findAllByOrderByNomeAsc();
 }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="materialize/css/administrador/style.css">
+    <link rel="stylesheet" href="materialize/css/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <title th:text="${pontoTuristico == null ? 'Cadastro de Ponto Turistico' : 'Alteração de Ponto Turistico'}"></title>
+</head>
+
+<body>
+    <header th:replace="fragments/padrao :: cabecalho"></header>
+    <div class="container main z-depth-4">
+        <h4 th:text="${pontoTuristico == null ? 'Cadastro de Ponto Turistico' : 'Alteração de Ponto Turistico'}"></h4>
+        <form class="col s4" style="margin: 0 auto;" action="salvarAdmin" method="post">
+            <input type="hidden" name="id" th:value="${pontoTuristico?.id}">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="first_name" type="text" name="nome" th:value="${pontoTuristico?.nome}" class="validate"
+                        required autofocus autocomplete="off">
+                    <label for="first_name">Nome</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="descricao" name="descricao" th:value="${pontoTuristico?.descricao}"
+                        class="materialize-textarea" data-length="300"></textarea>
+                    <label for="descricao">Descrição</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <input id="cep" name="cep" type="text" class="validate">
+                    <label for="cep">CEP</label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="logradouro" type="text" class="validate">
+                    <label for="logradouro">Endereço</label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="numero" type="number" class="validate">
+                    <label for="numero">Número</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <input id="bairro" name="bairro" type="text" class="validate">
+                    <label for="bairro">Bairro</label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="cidade" name="cidade" type="text" class="validate">
+                    <label for="cidade">Cidade</label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="estado" name="estado" type="text" class="validate">
+                    <label for="estado">Estado</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select>
+                        <option value="" disabled selected>Escolha um tipo de ambiente</option>
+                        <option th:each="t: ${tipo}" th:text="${t.nome}" th:value="${t.id}"></option>
+                    </select>
+                    <label>Tipo de Ambiente</label>
+                </div>
+                <div class="input-field col s6">
+                    <select>
+                        <option value="" disabled selected>O restaurante tem estacionamento?</option>
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                    <label>Estacionamento</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="horario" name="horario" type="text" class="validate">
+                    <label for="horario">Horario de funcionamento</label>
+                </div>
+            </div>
+            <div class="file-field input-field">
+                <div class="btn light-blue darken-1">
+                    <span>File</span>
+                    <input type="file" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                </div>
+            </div>
+            <button class="waves-effect waves-light btn light-blue darken-1" type="submit">
+                <i th:text="${pontoTuristico == null ? 'person_add' : 'create'}"
+                    class="material-icons right">person_add</i><span
+                    th:text="${pontoTuristico == null ? 'CADASTRAR' : 'ALTERAR'}"></span>
+            </button>
+            <div th:replace="fragments/mensagem"></div>
+        </form>
+    </div>
+    <footer th:replace="fragments/padrao :: footer"></footer>
+    <script src="/materialize/js/materialize.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('textarea#descricao').characterCounter();
+        });
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
+    </script>
+</body>
+
+</html>

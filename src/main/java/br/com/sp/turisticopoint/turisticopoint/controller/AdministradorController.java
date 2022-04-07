@@ -114,11 +114,22 @@ public class AdministradorController {
 	
 	@RequestMapping("searchAdministrador")
 	public String search(Model model, String busca, String escolha) {
+		model.addAttribute("escolha", escolha);
+		model.addAttribute("busca", busca);
 		if (escolha.equals("nome")) {
 			model.addAttribute("admins", repository.buscarPorNome(busca));
-			
+			if (repository.buscarPorNome(busca).isEmpty()) {
+				model.addAttribute("mensagemErro", "Não existe um administrador com esse nome...");
+			} else {
+				model.addAttribute("mensagemSucesso", "Sucesso ao buscar administrador pelo nome: "+busca+".");
+			}
 		} else {
 			model.addAttribute("admins", repository.buscarPorEmail(busca));
+			if (repository.buscarPorEmail(busca).isEmpty()) {
+				model.addAttribute("mensagemErro", "Não existe um administrador com esse email...");
+			} else {
+				model.addAttribute("mensagemSucesso", "Sucesso ao buscar administrador pelo email: "+busca+".");
+			}
 		}
 		return "administrador/list";
 	}

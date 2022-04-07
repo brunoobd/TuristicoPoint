@@ -2,102 +2,105 @@
 <html lang="pt-br" xmlns:th="http://thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/materialize/css/administrador/style.css">
-<link rel="stylesheet" href="/materialize/css/materialize.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<title>Lista de Administradores</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/materialize/css/administrador/style.css">
+    <link rel="stylesheet" href="/materialize/css/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Lista de Administradores</title>
 </head>
 
 <body class="body">
-	<header th:replace="fragments/padrao :: cabecalho"></header>
-	<div class="container tabela">
-		<div class="row busca">
-			<h4>Buscar administrador</h4>
-			<form action="/searchAdministrador" method="get">
-				<div class="row">
-					<div class="input-field col s6">
-						<input id="pesquisa" type="text" name="busca"
-							class="validate" required autocomplete="off" autofocus> <label
-							for="first_name">Pesquise por algo</label>
-					</div>
-					<div class="input-field col s4">
-						<select name="escolha" required>
-							<option value="" disabled selected>Escolha uma opção</option>
-							<option value="nome">Nome</option>
-							<option value="email">Email</option>
-						</select> 
-						<label>Escolha pelo oque voce quer pesquisar</label>
-					</div>
-					<div class="input-fild col s2">
-						<button class="btn waves-effect waves-light light-blue darken-1 btn-search" type="submit">Pesquisar
-			  				<i class="material-icons right">search</i>
-			  			</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="row lista">
-			<h4>Lista de Administradores</h4>
-		<table class="striped responsive-table centered">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Nome</th>
-					<th>E-mail</th>
-					<th>Alterar</th>
-					<th>Excluir</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="adm:${admins}">
-					<td th:text="${adm.id}"></td>
-					<td th:text="${adm.nome}"></td>
-					<td th:text="${adm.email}"></td>
-					<td>
-						<a class="waves-effect waves-light btn yellow darken-1" th:href="@{/AlterarAdmin(id=${adm.id})}">
-							<i class="material-icons">create</i>
-						</a>
-					</td>
-					<td>
-						<a class="waves-effect waves-light btn red" th:attr="onclick=|return confirm('Deseja excluir o ID: ${adm.id}?')|"
-							th:href="@{/ExcluirAdmin(id=${adm.id})}">
-							<i class="material-icons">delete</i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="add">
-			<a href="/CadastroAdmin" class="waves-effect waves-light btn light-blue darken-1"><i class="material-icons left">add_circle_outline</i>Adicionar administradores</a>
-		</div>
-	</div>
-		</div>
-		<ul class="pagination paginacao">
-		<li th:class="${pageAtual == 1 ? 'disabled' : 'waves-effect'}"><a
-			th:href="${pageAtual > 1 ? pageAtual - 1 : '#'}"><i
-				class="material-icons">chevron_left</i></a></li>
-		<li th:class="${pageAtual == p ? 'active blue' : 'waves-effect'}"
-			th:each="p:${numPaginas}"><a th:href="${p}"><span
-				th:text="${p}"></span></a></li>
-		<li
-			th:class="${pageAtual == totalPaginas ? 'disabled' : 'waves-effect'}">
-			<a th:href="${pageAtual < totalPaginas ? pageAtual + 1 : '#'}"> <i
-				class="material-icons">chevron_right</i></a>
-		</li>
-	</ul>
-	<footer th:replace="fragments/padrao :: footer"></footer>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <header th:replace="fragments/padrao :: cabecalho"></header>
 
-	<script src="/materialize/js/materialize.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('select').formSelect();
-		});
-	</script>
+    <div class="container tabela">
+        <div class="row busca">
+            <h4>Buscar administrador</h4>
+            <form action="/searchAdministrador" method="get">
+                <div class="row inputs">
+                    <div class="input-field col s6">
+                        <input id="pesquisa" type="text" name="busca" class="validate" th:value="${busca}" required
+                            autocomplete="off">
+                        <label for="first_name">Pesquise por algo</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select name="escolha" required>
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <option value="nome" th:selected="${escolha == 'nome'}">Nome</option>
+                            <option value="email" th:selected="${escolha == 'email'}">Email</option>
+                        </select>
+                        <label>Escolha pelo oque voce quer pesquisar</label>
+                    </div>
+                    <div class="input-fild col s2">
+                        <button class="btn waves-effect waves-light light-blue darken-1 btn-search"
+                            type="submit">Pesquisar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div th:replace="fragments/mensagem"></div>
+        </div>
+        <div class="row lista">
+            <h4>Lista de Administradores</h4>
+            <table class="striped responsive-table centered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Alterar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="adm:${admins}">
+                        <td th:text="${adm.id}"></td>
+                        <td th:text="${adm.nome}"></td>
+                        <td th:text="${adm.email}"></td>
+                        <td>
+                            <a class="waves-effect waves-light btn yellow darken-1"
+                                th:href="@{/AlterarAdmin(id=${adm.id})}">
+                                <i class="material-icons">create</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="waves-effect waves-light btn red"
+                                th:attr="onclick=|return confirm('Deseja excluir o ID: ${adm.id}?')|"
+                                th:href="@{/ExcluirAdmin(id=${adm.id})}">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="add">
+                <a href="/CadastroAdmin" class="waves-effect waves-light btn light-blue darken-1"><i
+                        class="material-icons left">add_circle_outline</i>Adicionar administradores</a>
+            </div>
+        </div>
+    </div>
+    <ul class="pagination paginacao">
+        <li th:class="${pageAtual == 1 ? 'disabled' : 'waves-effect'}"><a
+                th:href="${pageAtual > 1 ? pageAtual - 1 : '#'}"><i class="material-icons">chevron_left</i></a></li>
+        <li th:class="${pageAtual == p ? 'active blue' : 'waves-effect'}" th:each="p:${numPaginas}"><a
+                th:href="${p}"><span th:text="${p}"></span></a></li>
+        <li th:class="${pageAtual == totalPaginas ? 'disabled' : 'waves-effect'}">
+            <a th:href="${pageAtual < totalPaginas ? pageAtual + 1 : '#'}"> <i
+                    class="material-icons">chevron_right</i></a>
+        </li>
+    </ul>
+
+    <footer th:replace="fragments/padrao :: footer"></footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="/materialize/js/materialize.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
+    </script>
 </body>
 
 </html>
