@@ -16,7 +16,7 @@
     <header th:replace="fragments/padrao :: cabecalho"></header>
     <div class="container main z-depth-4">
         <h4 th:text="${pontoTuristico == null ? 'Cadastro de Ponto Turistico' : 'Alteração de Ponto Turistico'}"></h4>
-        <form class="col s4" style="margin: 0 auto;" action="salvarAdmin" method="post">
+        <form class="col s4" style="margin: 0 auto;" action="SalvarPontoTuristico" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" th:value="${pontoTuristico?.id}">
             <div class="row">
                 <div class="input-field col s12">
@@ -38,39 +38,39 @@
                     <label for="cep">CEP</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="logradouro" type="text" class="validate">
+                    <input id="logradouro" name="logradouro" type="text" class="validate" readonly>
                     <label for="logradouro">Endereço</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="numero" type="number" class="validate">
+                    <input id="numero" name="numero" type="text" class="validate">
                     <label for="numero">Número</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s4">
-                    <input id="bairro" name="bairro" type="text" class="validate">
+                    <input id="bairro" name="bairro" type="text" class="validate" readonly>
                     <label for="bairro">Bairro</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="cidade" name="cidade" type="text" class="validate">
+                    <input id="cidade" name="cidade" type="text" class="validate" readonly>
                     <label for="cidade">Cidade</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="estado" name="estado" type="text" class="validate">
+                    <input id="estado" name="estado" type="text" class="validate" readonly>
                     <label for="estado">Estado</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <select>
+                    <select name="tipo.id">
                         <option value="" disabled selected>Escolha um tipo de ambiente</option>
                         <option th:each="t: ${tipo}" th:text="${t.nome}" th:value="${t.id}"></option>
                     </select>
                     <label>Tipo de Ambiente</label>
                 </div>
                 <div class="input-field col s6">
-                    <select>
-                        <option value="" disabled selected>O restaurante tem estacionamento?</option>
+                    <select name="estacionamento">
+                        <option value="" disabled selected>O ponto turistico tem estacionamento?</option>
                         <option value="true">Sim</option>
                         <option value="false">Não</option>
                     </select>
@@ -85,8 +85,8 @@
             </div>
             <div class="file-field input-field">
                 <div class="btn light-blue darken-1">
-                    <span>File</span>
-                    <input type="file" multiple>
+                    <span>Fotos</span>
+                    <input type="file" name="fileFotos" multiple accept="image/*">
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Upload one or more files">
@@ -102,7 +102,7 @@
     </div>
     <footer th:replace="fragments/padrao :: footer"></footer>
     <script src="/materialize/js/materialize.js"></script>
-
+	<script src="/js/script.js"></script>
     <script>
         $(document).ready(function () {
             $('textarea#descricao').characterCounter();

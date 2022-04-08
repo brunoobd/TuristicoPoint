@@ -29,24 +29,18 @@ public class PontoTuristico {
 	@NotEmpty
 	private String numero;
 	@NotEmpty
-	private String complemento;
-	@NotEmpty
 	private String bairro;
 	@NotEmpty
 	private String cidade;
 	@NotEmpty
 	private String estado;
 	@NotEmpty
-	private String atracoes;
-	@NotEmpty
 	private String horario;
-	@NotEmpty
+	@NotNull
 	private boolean estacionamento;
 	@NotNull
 	@ManyToOne
 	private TipoAmbiente tipo;
 	@Column(columnDefinition = "TEXT")
 	private String fotos;
-	@NotNull
-	private int preco;
 }
