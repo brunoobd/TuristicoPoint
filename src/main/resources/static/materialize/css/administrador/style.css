@@ -140,3 +140,30 @@ body, html{height:100%;}
 	text-align: center;
 	color: #fff;
 }
+
+.fotos {
+	width: 100%;
+	margin: 10px auto;
+	padding: 5px 0 0 0;
+	background-color: #f0f0f0;
+	border-radius: 5px;
+}
+
+.fotos ul {
+	display: inline-block;
+	margin: 0;
+}
+
+.foto {
+	width: 100px;
+	margin: 0 10px;
+}
+
+.foto > a	 {
+	display: block;
+	
+}
+
+.foto > a > img	 {
+	width: 100%;
+}

@@ -43,4 +43,13 @@ public class PontoTuristico {
 	private TipoAmbiente tipo;
 	@Column(columnDefinition = "TEXT")
 	private String fotos;
+	
+	// retorna as fotos na forma de vetor de String
+	public String[] verFotos() {
+		return fotos.split(";");
+	}
+	
+	public String enderecoCompleto() {
+		return logradouro + " " + numero + ", " + bairro + " - " + cidade + "/" + estado;
+	}
 }

@@ -34,29 +34,29 @@
             </div>
             <div class="row">
                 <div class="input-field col s4">
-                    <input id="cep" name="cep" type="text" class="validate">
+                    <input id="cep" name="cep" type="text" class="validate" th:value="${pontoTuristico?.cep}">
                     <label for="cep">CEP</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="logradouro" name="logradouro" type="text" class="validate" readonly>
+                    <input id="logradouro" name="logradouro" type="text" class="validate" th:value="${pontoTuristico?.logradouro}" readonly>
                     <label for="logradouro">Endereço</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="numero" name="numero" type="text" class="validate">
+                    <input id="numero" name="numero" type="text" class="validate" th:value="${pontoTuristico?.numero}">
                     <label for="numero">Número</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s4">
-                    <input id="bairro" name="bairro" type="text" class="validate" readonly>
+                    <input id="bairro" name="bairro" type="text" class="validate" th:value="${pontoTuristico?.bairro}" readonly>
                     <label for="bairro">Bairro</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="cidade" name="cidade" type="text" class="validate" readonly>
+                    <input id="cidade" name="cidade" type="text" class="validate" th:value="${pontoTuristico?.cidade}" readonly>
                     <label for="cidade">Cidade</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="estado" name="estado" type="text" class="validate" readonly>
+                    <input id="estado" name="estado" type="text" class="validate" th:value="${pontoTuristico?.estado}" readonly>
                     <label for="estado">Estado</label>
                 </div>
             </div>
@@ -64,22 +64,22 @@
                 <div class="input-field col s6">
                     <select name="tipo.id">
                         <option value="" disabled selected>Escolha um tipo de ambiente</option>
-                        <option th:each="t: ${tipo}" th:text="${t.nome}" th:value="${t.id}"></option>
-                    </select>
+                        <option th:each="t: ${tipo}" th:text="${t.nome}" th:value="${t.id}" th:selected="${t.id == pontoTuristico?.tipo?.id}"></option>
+                    </select>		
                     <label>Tipo de Ambiente</label>
                 </div>
                 <div class="input-field col s6">
                     <select name="estacionamento">
                         <option value="" disabled selected>O ponto turistico tem estacionamento?</option>
-                        <option value="true">Sim</option>
-                        <option value="false">Não</option>
+                        <option value="true" th:selected="${pontoTuristico?.estacionamento == true}">Sim</option>
+                        <option value="false" th:selected="${pontoTuristico?.estacionamento == false}">Não</option>
                     </select>
                     <label>Estacionamento</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="horario" name="horario" type="text" class="validate">
+                    <input id="horario" name="horario" type="text" class="validate" th:value="${pontoTuristico?.horario}">
                     <label for="horario">Horario de funcionamento</label>
                 </div>
             </div>
@@ -91,6 +91,13 @@
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Upload one or more files">
                 </div>
+            </div>
+            <div class="fotos" th:if="${pontoTuristico?.fotos?.length > 0}">
+            	<ul>
+            		<li class="foto" th:each="f : ${pontoTuristico.verFotos()}">
+            			<a th:href="${f}"><img th:src="${f}"></a>
+            		</li>
+            	</ul>
             </div>
             <button class="waves-effect waves-light btn light-blue darken-1" type="submit">
                 <i th:text="${pontoTuristico == null ? 'person_add' : 'create'}"
