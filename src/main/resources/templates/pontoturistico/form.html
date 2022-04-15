@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="descricao" name="descricao" th:value="${pontoTuristico?.descricao}"
+                    <textarea id="descricao" name="descricao" th:text="${pontoTuristico?.descricao}"
                         class="materialize-textarea" data-length="300"></textarea>
                     <label for="descricao">Descrição</label>
                 </div>
@@ -92,10 +92,12 @@
                     <input class="file-path validate" type="text" placeholder="Upload one or more files">
                 </div>
             </div>
+            <input type="hidden" th:value="${pontoTuristico?.fotos}" name="fotos">
             <div class="fotos" th:if="${pontoTuristico?.fotos?.length > 0}">
             	<ul>
-            		<li class="foto" th:each="f : ${pontoTuristico.verFotos()}">
+            		<li class="foto" th:each="f, i : ${pontoTuristico.verFotos()}">
             			<a th:href="${f}"><img th:src="${f}"></a>
+            			<a th:href="@{/ExcluirFotos(idPonto=${pontoTuristico.id}, nmrFoto=${i.index})}"><i class="material-icons">delete_forever</i></a>
             		</li>
             	</ul>
             </div>

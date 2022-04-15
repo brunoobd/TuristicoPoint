@@ -15,4 +15,8 @@ public interface AdministradorRepository extends PagingAndSortingRepository<Admi
 	
 	@Query("SELECT a FROM Administrador a WHERE a.email LIKE %:e%")
 	public List<Administrador> buscarPorEmail(@Param("e") String email);
+	
+	
+	// método para buscar o administrador pelo email e pela senha para fazer o login
+	public Administrador findByEmailAndSenha(String email, String senha);
 }

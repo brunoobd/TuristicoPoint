@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="materialize/css/administrador/style.css">
+<link rel="stylesheet" href="materialize/css/materialize.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<script src="materialize/js/materialize.js"></script>
+<title>Login</title>
+</head>
+
+<body>
+	<header th:replace="fragments/padrao :: cabecalho"></header>
+	<div class="container main z-depth-4">
+		<h4>Login</h4> 
+		<form class="col s4" style="margin: 0 auto;" action="Login"
+			method="post">
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">email</i> <input id="email"
+						type="email" name="email" th:value="${admin?.email}"
+						class="validate" required autocomplete="off"> <label
+						for="email">Email</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">lock</i> <input id="password"
+						type="password" name="senha" class="validate"> <label
+						for="password">Senha</label>
+				</div>
+			</div>
+			<button class="waves-effect waves-light btn light-blue darken-1" type="submit">
+				<i class="material-icons right"></i><span>Entrar</span> 
+			</button>
+			<div th:replace="fragments/mensagem"></div>
+		</form>
+	</div>
+	<footer th:replace="fragments/padrao :: footer"></footer>
+</body>
+
+</html>

@@ -154,14 +154,13 @@ body, html{height:100%;}
 	margin: 0;
 }
 
+.fotos ul > li {
+	display: inline-block;
+}
+
 .foto {
 	width: 100px;
 	margin: 0 10px;
-}
-
-.foto > a	 {
-	display: block;
-	
 }
 
 .foto > a > img	 {

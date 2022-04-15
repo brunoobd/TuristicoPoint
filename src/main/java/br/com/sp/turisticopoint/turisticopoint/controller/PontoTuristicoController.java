@@ -92,7 +92,19 @@ public class PontoTuristicoController {
 		return "forward:/CadastroPontoTuristico";
 	}
 	
-	@RequestMapping("excluirFotos")
+	@RequestMapping("ExcluirPontoTuristico")
+	public String excluir(Long id) {
+		PontoTuristico ponto = repPontoTuristico.findById(id).get();
+		if (ponto.getFotos().length() > 0) {
+			for (String foto : ponto.verFotos()) {
+				fireUtil.deletar(foto);
+			}
+		}
+		repPontoTuristico.delete(ponto);  
+		return "redirect:/ListaPontoTuristico/1";
+	}
+	
+	@RequestMapping("ExcluirFotos")
 	public String excluirFotos(Long idPonto, int nmrFoto, Model model) {
 		// busca o ponto turistico
 		PontoTuristico ponto = repPontoTuristico.findById(idPonto).get();
