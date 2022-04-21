@@ -20,6 +20,8 @@ public class AppInterceptor implements HandlerInterceptor {
 		// variavel para a sessão
 		HttpSession session = request.getSession();
 		
+		
+		
 		// se for pagina de erro, libera
 		if (uri.startsWith("/error")) {
 			return true;
@@ -31,17 +33,24 @@ public class AppInterceptor implements HandlerInterceptor {
 		if (handler instanceof HandlerMethod) {
 			// castring de Object para HandlerMethod
 			HandlerMethod metodo = (HandlerMethod) handler;
-			// verifica se este método é publico
-			if (metodo.getMethodAnnotation(Publico.class) != null) {
+			
+			if (uri.startsWith("/api")) {
+
 				return true;
-			}
-			// verifica se existe um usuario logado
-			if (session.getAttribute("usuarioLogado") != null) {
-				return true;
-			}
-			// redireciona para a pagina inicial
-			response.sendRedirect("/");
-			return false;
+				}else {
+
+					// verifica se este método é publico
+					if (metodo.getMethodAnnotation(Publico.class) != null) {
+						return true;
+					}
+					// verifica se existe um usuario logado
+					if (session.getAttribute("usuarioLogado") != null) {
+						return true;
+					}
+					// redireciona para a pagina inicial
+					response.sendRedirect("/");
+					return false;
+				}	
 		}
 		
 		return true;
