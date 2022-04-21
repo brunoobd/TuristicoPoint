@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.sp.turisticopoint.turisticopoint.annotation.Publico;
 import br.com.sp.turisticopoint.turisticopoint.model.Administrador;
 import br.com.sp.turisticopoint.turisticopoint.repository.AdministradorRepository;
 import br.com.sp.turisticopoint.turisticopoint.util.HashUtil;
@@ -135,6 +136,7 @@ public class AdministradorController {
 		return "administrador/list";
 	}
 	
+	@Publico
 	@RequestMapping("Login")
 	public String login(Administrador admLogin, RedirectAttributes attr, HttpSession session) {
 		// busca o admin no banco
@@ -147,5 +149,13 @@ public class AdministradorController {
 			session.setAttribute("usuarioLogado", admin);
 			return "redirect:/ListaPontoTuristico/1";
 		}
+	}
+	
+	@RequestMapping("Logout")
+	public String logout(HttpSession session) {
+		// invalida a sessao
+		session.invalidate();
+		// voltar para a página inicial
+		return "redirect:/";
 	}
 }
